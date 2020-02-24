@@ -1,0 +1,41 @@
+0 = 5 // A
+1 = 2 // B
+2 = A // Counter
+3 = 1 // Counter step
+4 = 0 // SUM
+5 = 0 // Counter end
+
+init:
+	LDA 0 // load a				|0170
+	STA 0 // set A				|0380
+	STA 2 // set counter			|0382
+	
+	LDA 1 // load b				|0171
+	STA 1 // set B				|0381
+	
+	LDA 3 // load counter step		|0173
+	STA 3 // set counter step		|0383
+
+	LDA X // load 0				|0175
+	STA 4 // reset sum			|0384
+loop:
+	LDA 4 // load sum			|0184
+	ADD 1 // add B				|0580
+	STA 4 // store sum			|0384
+
+	LDA 2 // load counter			|0182
+	SUB 3 // subtract 1			|0683
+	STA 2 // store counter			|0382
+
+	LDB 5 // load 0				|0285
+	JEQ end // compare counter with 0	|0AXX
+	JMP loop				|08XX
+end:
+	OUT					|0700
+	JMP 0					|0800
+
+
+
+
+
+

@@ -1,0 +1,40 @@
+0 = 5 // A
+1 = 2 // B
+2 = 0 // Counter
+3 = 1 // Counter step
+4 = 0 // SUM
+
+init:
+	LDA 0 // load a					|0170
+	STA 0 // set a					|0380
+
+	LDA 1 // load b					|0171
+	STA 1 // set b					|0381
+
+	LDA 3 // load counter step			|0173
+	STA 3 // set counter step			|0383
+main:
+	LDA 4 // load sum				|0184
+	ADD 1 // add B					|0581
+	STA 4 // store sum				|0384
+
+	LDB 1 // load a					|0280
+	JGT end // check if sum is greater than b	|09XX
+
+	LDA 2 // load counter				|0182
+	ADD 3 // add 1					|0583
+	STA 2 // store counter				|0382
+
+	LDA 4 // load sum				|0184
+	LDB 1 // load a					|0280
+	JEQ end // check if sum is equal to b		|0AXX
+	JMP loop					|08XX
+end:
+	LDA 2 // load counter				|0182
+	OUT						|0700
+	HLT						|0F00
+	
+
+
+
+
